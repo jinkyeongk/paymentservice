@@ -12,8 +12,7 @@ import reactor.core.publisher.Mono
 @WebAdapter //웹 요청을 받아서 웹어플리케이션에 명령을 전달하는 웹어댑터 어노테이션
 @RequestMapping("/v1/toss") //결제 성공과 실패에 대한 리다이렉션 렌더링 코드
 class PaymentController {
-
-    // 페이지 리다이렉션 렌더링 코드
+    //페이지 리다이렉션 렌더링 코드
     @PostMapping("/success")
     fun successPage(): Mono<String>
     {

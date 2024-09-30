@@ -18,8 +18,7 @@ import reactor.core.publisher.Mono
 @RestController
 class TossPaymentController (
     private val tossPaymentExecutor: TossPaymentExecutor
-){
-    // 결제승인요청 처리
+){  // 결제승인요청 처리
     @PostMapping("/confirm")
     fun confirm(@RequestBody request: TossPaymentConfirmRequest): Mono<ResponseEntity<ApiResponse<String>>> {
         return tossPaymentExecutor.execute(
