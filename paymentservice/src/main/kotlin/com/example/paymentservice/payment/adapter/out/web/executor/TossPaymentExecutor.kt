@@ -9,7 +9,7 @@ class TossPaymentExecutor (
     private val tossPaymentWebClient: WebClient,
     private val uri: String = "/v1/payments/confirm"
 ){
-    //외부로 API 요청을 보냄 (실제 승인 API 호출 로직)
+    // 외부로 API 요청을 보냄 (실제 승인 API 호출 로직)
     fun execute(paymentKey: String, orderId: String, amount:String ): Mono<String> {
        return tossPaymentWebClient.post()
             .uri(uri) //결제 승인 API URI 값

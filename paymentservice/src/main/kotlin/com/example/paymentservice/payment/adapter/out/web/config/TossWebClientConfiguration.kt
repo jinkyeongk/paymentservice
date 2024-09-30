@@ -18,7 +18,7 @@ class TossWebClientConfiguration (
 ){
 
     @Bean
-    fun tossPaymentWebClient(): WebClient { //Spring Web Flux에서 비동기적인 HTTP 요청을 생성해서 보낼 수 있는 클라이언트(네트퉈크 통신 가능)
+    fun tossPaymentWebClient(): WebClient { // Spring Web Flux에서 비동기적인 HTTP 요청을 생성해서 보낼 수 있는 클라이언트(네트퉈크 통신 가능)
         val encodedSecretKey = Base64.getEncoder().encodeToString((secretKey + ":").toByteArray())
 
         return WebClient.builder()
