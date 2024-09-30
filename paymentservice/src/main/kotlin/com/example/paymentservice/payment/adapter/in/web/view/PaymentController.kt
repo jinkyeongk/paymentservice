@@ -1,9 +1,9 @@
 package com.example.paymentservice.payment.adapter.`in`.web.view
 
 import com.example.paymentservice.common.WebAdapter
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import reactor.core.publisher.Mono
 
@@ -13,14 +13,14 @@ import reactor.core.publisher.Mono
 @RequestMapping("/v1/toss") //결제 성공과 실패에 대한 리다이렉션 렌더링 코드
 class PaymentController {
 
-
-    @GetMapping("/success")
+    //페이지 리다이렉션 렌더링 코드
+    @PostMapping("/success")
     fun successPage(): Mono<String>
     {
         return Mono.just("success")
     }
 
-    @GetMapping("/fail")
+    @PostMapping("/fail")
     fun failPage(): Mono<String>
     {
         return Mono.just("fail")
