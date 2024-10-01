@@ -1,0 +1,46 @@
+create table payment_events(
+    id BIGINT auto_increment primary key,
+    buyer_id bigint  NOT NULL, -- 구매자 id
+    is_payment_done boolean not null default false, -- 결제완료 여부
+    payment_key varchar(255) unique , -- 페이먼트 키
+    order_id varchar(255) unique , -- 결제 주문 id
+    type enum('NORMAL') not null, -- 결제 유형
+    order_name varchar(255) not null, -- 결제 주문이름
+    method enum('EASY_PAY'), -- 결제 주문 방법
+    psp_raw_data JSON, -- 결제 승인 후 응답 데이터
+    approved_at DATETIME,
+    created_at  DATETIME not null default current_timestamp,
+    updated_at  DATETIME not null default current_timestamp
+);
+
+create table payment_orders(
+    id BIGINT auto_increment primary key,
+    payment_event_id bigint not null , -- 페이먼트 이벤트 참조하는 이벤트 id
+    seller_id  bigint not null , -- 판매자id
+    product_id bigint not null , -- 상품 id
+    order_id varchar(255) not null , -- 오더 id
+    amount decimal(12,2) not null , -- 거래 금액
+    payment_order_status enum('NOT_STARTED','EXECUTING','SUCCESS','FAILURE','UNKNOWN') NOT NULL DEFAULT 'NOT_STARTED', -- 결제 주문 상태
+    ledger_updated boolean not null default false, -- 장부 업데이트 여부
+    wallet_updated boolean not null default false, -- 지갑 업데이트 여부
+    failed_count tinyint not null default 0, -- 결제 실패 횟수
+    threshold tinyint not null  default 5, -- 결제 실패 최대 허용 횟수
+    created_at  DATETIME not null default current_timestamp,
+    updated_at  DATETIME not null default current_timestamp,
+
+    foreign key (payment_event_id) references payment_events(id)
+);
+
+
+create table payment_order_histories(
+    id BIGINT auto_increment primary key,
+    payment_order_id bigint not null , -- payment order 참조하는 컬럼
+    previous_status enum('NOT_STARTED','EXECUTING','SUCCESS','FAILURE','UNKNOWN'), -- 변경 전 결제 주문 상태
+    new_status enum('NOT_STARTED','EXECUTING','SUCCESS','FAILURE','UNKNOWN'), -- 변경 후 새로운 결제 주문 상태
+    created_at  DATETIME not null default current_timestamp,
+    changed_by varchar(255),
+    reason varchar(255), -- 상태변화의 원인 (리마크)
+
+    foreign key (payment_order_id) references payment_orders(id)
+
+);
