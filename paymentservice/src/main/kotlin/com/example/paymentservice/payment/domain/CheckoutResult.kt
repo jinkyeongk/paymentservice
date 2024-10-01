@@ -1,4 +1,7 @@
 package com.example.paymentservice.payment.domain
 
-class CheckoutResult {
-}
+data class CheckoutResult (
+    val amount: Long,
+    val orderId: String,
+    val orderName: String
+)
