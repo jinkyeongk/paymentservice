@@ -7,6 +7,7 @@ import com.example.paymentservice.payment.application.port.`in`.CheckoutCommand
 import com.example.paymentservice.payment.application.port.`in`.CheckoutUseCase
 import com.example.paymentservice.payment.application.service.CheckoutService
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping;
 import reactor.core.publisher.Mono;
 
@@ -17,8 +18,8 @@ class CheckoutController (
 ){
 
     @GetMapping("/")
-    fun checkoutPage(request: CheckoutRequest,Model model): Mono<String> {
-        CheckoutCommand(
+    fun checkoutPage(request: CheckoutRequest,model: Model): Mono<String> {
+        val command = CheckoutCommand(
             cartId = request.cartId,
             buyerId = request.buyerId,
             productIds = request.productId,
