@@ -10,6 +10,10 @@ data class PaymentOrder(
     val orderId: String,
     val amount: BigDecimal,
     val paymentStatus: PaymentStatus,
-    private var isLefgerUpdated: Boolean = false, // 장부기입여부
+    private var isLedgerUpdated: Boolean = false, // 장부기입여부
     private var isWalletUpdated: Boolean = false //정산처리여부
-)
+){
+    fun isLedgerUpdated() :Boolean  = isLedgerUpdated
+    fun isWalletUpdated() :Boolean  = isWalletUpdated
+
+    }

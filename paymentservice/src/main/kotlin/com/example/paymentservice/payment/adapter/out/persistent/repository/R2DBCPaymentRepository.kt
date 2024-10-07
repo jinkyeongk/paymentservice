@@ -31,7 +31,7 @@ class R2DBCPaymentRepository (
             .bind("orderId", paymentEvent.orderId)
             .fetch()
             .rowsUpdated()
-    } 
+    }
 
     private fun selectPaymentEventId() = databaseClient.sql(LAST_INSERT_ID_QUERY)
         .fetch()
